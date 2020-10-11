@@ -78,7 +78,7 @@ function ViewSlots({ navigation }) {
   };
 
   const checkAvailablity = () => {
-    for (var i = 1; i < 8; i++) {
+    for (var i = 1; i < 9; i++) {
       check("0" + i);
     }
   };
@@ -146,10 +146,11 @@ function ViewSlots({ navigation }) {
       <View style={styles.container}>
         {slots.length === 0 ? (
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>You do not have any Notes</Text>
+            <Text style={styles.title}>No Booking Available</Text>
           </View>
         ) : (
           <FlatList
+            style={{ marginBottom: 75 }}
             data={slots}
             renderItem={({ item }) => (
               <List.Item
@@ -163,7 +164,7 @@ function ViewSlots({ navigation }) {
                 }}
                 title={item.slot.slotTitle}
                 description={item.slot.slotDescription}
-                descriptionStyle={styles.listTitle}
+                descriptionStyle={styles.listDescription}
                 descriptionNumberOfLines={1}
                 titleStyle={styles.listTitle}
                 onPress={() => openBookingDetails(item.id, item.slot.slotTitle)}
@@ -221,6 +222,10 @@ const styles = StyleSheet.create({
   },
   listTitle: {
     fontSize: 20,
+    color: "#fff"
+  },
+  listDescription: {
+    fontSize: 15,
     color: "#fff"
   }
 });

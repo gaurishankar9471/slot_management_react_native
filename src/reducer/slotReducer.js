@@ -52,7 +52,8 @@ function slotReducer(state = initialData, action) {
             ...item,
             slot: {
               isBooked: true,
-              slotTitle: action.data
+              slotTitle: action.data,
+              slotDescription: "Booked Already"
             }
           };
         }
