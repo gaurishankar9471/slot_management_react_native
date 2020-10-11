@@ -9,7 +9,7 @@ import { initialData } from "../rawData";
 const storage = new Storage({
   size: 1000,
   storageBackend: AsyncStorage, // for web: window.localStorage
-  defaultExpires: 1000 * 3600 * 24,
+  defaultExpires: null,
   enableCache: true,
   sync: {}
 });

@@ -27,12 +27,12 @@ function ViewSlots({ navigation }) {
     }
   };
 
-  //set initial value to sotorage
+  //set initial value to storage
   const run_initial = id => {
     storage
       .save({
-        key: "user", // Note: Do not use underscore("_") in key!
-        id: id, // Note: Do not use underscore("_") in id!
+        key: "user",
+        id: id,
         data: {
           first_name: "",
           last_name: "",
@@ -95,7 +95,7 @@ function ViewSlots({ navigation }) {
     sync: {}
   });
 
-  //   storage.clearMapForKey("user");
+  // storage.clearMapForKey("user");
 
   //onClick FlatList Item Function
   const openBookingDetails = (id, slotTitle) => {
@@ -178,6 +178,12 @@ function ViewSlots({ navigation }) {
           small
           label="Check Availabilty"
           onPress={() => checkAvailablity()}
+        />
+        <FAB
+          style={styles.fab2}
+          small
+          label="gallery"
+          onPress={() => navigation.navigate("GalleryView", {})}
         />
       </View>
     </>

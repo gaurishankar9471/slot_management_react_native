@@ -17,11 +17,11 @@ function UpdateSlot({ navigation }) {
   const last_name = navigation.getParam("lastName", "");
   const mobile_no = navigation.getParam("mobile", "");
 
-  //Initialize Storge Func
+  //Initialize Storage
   const storage = new Storage({
     size: 1000,
 
-    storageBackend: AsyncStorage, // for web: window.localStorage
+    storageBackend: AsyncStorage,
     defaultExpires: 1000 * 3600 * 24,
 
     enableCache: true,
@@ -30,12 +30,10 @@ function UpdateSlot({ navigation }) {
   });
 
   function onUpdateNote() {
-    // storage.clearMapForKey("user");
-    console.log(slotId);
     storage
       .save({
-        key: "user", // Note: Do not use underscore("_") in key!
-        id: slotId, // Note: Do not use underscore("_") in id!
+        key: "user",
+        id: slotId,
         data: {
           first_name: firstName,
           last_name: lastName,
@@ -67,9 +65,9 @@ function UpdateSlot({ navigation }) {
       />
 
       <View style={styles.container}>
-        <Text>{firt_name}</Text>
-        <Text>{last_name}</Text>
-        <Text>{mobile_no}</Text>
+        <Text style={styles.info}>{firt_name}</Text>
+        <Text style={styles.info}>{last_name}</Text>
+        <Text style={styles.info}>{mobile_no}</Text>
 
         <TextInput
           label="Enter First Name"
@@ -113,7 +111,7 @@ function UpdateSlot({ navigation }) {
           style={styles.fabSave}
           small
           icon="plus"
-          label="Save"
+          label="submit"
           onPress={() => onUpdateNote()}
         />
       </View>
@@ -140,8 +138,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 1
   },
+  info: {
+    fontSize: 20,
+    textAlign: "center",
+    padding: 3
+  },
   title: {
-    fontSize: 15,
+    fontSize: 20,
     marginBottom: 16
   },
   text: {

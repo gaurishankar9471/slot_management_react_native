@@ -1,30 +1,21 @@
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 
-import ViewNotes from "../screens/ViewNotes";
-
 import ViewSlots from "../screens/ViewSlots";
 import UpdateSlot from "../screens/UpdateSlot";
 
-import AddNotes from "../screens/AddNotes";
-import SlotDetails from "../screens/SlotDetails";
+import GalleryView from "../screens/GalleryView";
 
 const StackNavigator = createStackNavigator(
   {
-    ViewNotes: {
-      screen: ViewNotes
-    },
-    AddNotes: {
-      screen: AddNotes
+    ViewSlots: {
+      screen: ViewSlots
     },
     UpdateSlot: {
       screen: UpdateSlot
     },
-    SlotDetails: {
-      screen: SlotDetails
-    },
-    ViewSlots: {
-      screen: ViewSlots
+    GalleryView: {
+      screen: GalleryView
     }
   },
   {
