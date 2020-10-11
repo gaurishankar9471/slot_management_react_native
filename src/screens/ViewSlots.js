@@ -3,7 +3,7 @@ import { StyleSheet, View, FlatList } from "react-native";
 import { Text, FAB, List, Button } from "react-native-paper";
 import Header from "../component/Header";
 import { useSelector, useDispatch } from "react-redux";
-import { addslot, updateslot } from "../reducer/slotReducer";
+import { updateslot } from "../reducer/slotReducer";
 import Storage from "react-native-storage";
 import { AsyncStorage } from "react-native";
 import { add } from "react-native-reanimated";
@@ -12,16 +12,13 @@ function ViewSlots({ navigation }) {
   const slots = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const addSlot = slot => {
-    console.log(slot);
-    dispatch(addslot(slot));
-  };
-
+  //disptach update to reducer
   const updateSlot = (id, data) => {
     dispatch(updateslot(id, data));
     console.log("ViewNote -" + id);
   };
 
+  //Function to change backgorund colot flat list item
   const getMyColor = isBooked => {
     if (isBooked) {
       return "#EC4849";
@@ -30,6 +27,7 @@ function ViewSlots({ navigation }) {
     }
   };
 
+  //set initial value to sotorage
   const run_initial = id => {
     storage
       .save({
@@ -50,9 +48,8 @@ function ViewSlots({ navigation }) {
       })
       .catch(err => console.log(err));
   };
-
+  //check book list for availability
   const check = id => {
-    console.log("Runned ");
     storage
       .load({
         key: "user",
@@ -64,16 +61,13 @@ function ViewSlots({ navigation }) {
           updateSlot(id, ret.slotTitle);
         }
 
-        return "kkk";
+        return "";
       })
       .catch(err => {
-        // any exception including data not found
-        // goes to catch()
-        // console.warn(err.message);
         switch (err.name) {
           case "NotFoundError":
             // TODO;
-            console.log("Not");
+            console.log("Not Found");
             run_initial(id);
             break;
           case "ExpiredError":
@@ -83,19 +77,9 @@ function ViewSlots({ navigation }) {
       });
   };
 
-  const checkLoop = id => {
+  const checkAvailablity = () => {
     for (var i = 1; i < 8; i++) {
-      console.log("0" + i);
-      //   run_initial("0" + i);
       check("0" + i);
-    }
-  };
-
-  const initLoop = () => {
-    for (var i = 1; i < 8; i++) {
-      console.log("0" + i);
-      //   run_initial("0" + i);
-      run_initial("0" + i);
     }
   };
 
@@ -103,101 +87,20 @@ function ViewSlots({ navigation }) {
   const storage = new Storage({
     size: 1000,
 
-    storageBackend: AsyncStorage, // for web: window.localStorage
-    defaultExpires: 1000 * 3600 * 24,
+    storageBackend: AsyncStorage,
+    defaultExpires: null,
 
     enableCache: true,
 
     sync: {}
   });
 
-  storage.save({
-    key: "user", // Note: Do not use underscore("_") in key!
-    id: "01", // Note: Do not use underscore("_") in id!
-    data: {
-      first_name: "sfd",
-      last_name: "",
-      mobile: "",
-      isBooked: false,
-      slotTitle: "6 : 12PM",
-      slotDescription: "Book Fast to avoid missing"
-    },
-    expires: null
-  });
-
-  //   storage
-  //     .load({
-  //       key: "user",
-  //       id: "05"
-  //     })
-  //     .then(ret => {
-  //       // found data goes to then()
-
-  //       //   console.log(ret);
-
-  //       return "kkk";
-  //     })
-  //     .catch(err => {
-  //       // any exception including data not found
-  //       // goes to catch()
-  //       console.warn(err.message);
-  //       switch (err.name) {
-  //         case "NotFoundError":
-  //           // TODO;
-  //           break;
-  //         case "ExpiredError":
-  //           // TODO
-  //           break;
-  //       }
-  //     });
-
-  //Loading Initaial Data from Storage
-  const loadInitialData = () => {
-    storage.getIdsForKey("user").then(ids => {
-      console.log(ids);
-      ids.forEach(id => {
-        storage
-          .load({
-            key: "user",
-            id: id
-          })
-          .then(ret => {
-            // found data goes to then()
-            console.log();
-            console.log("My i d new " + ret.first_name);
-            addSlot({
-              slotTitle: ret.slotTitle,
-              slotDescription: ret.slotDescription,
-              id: id,
-              isBooked: ret.isBooked
-            });
-          })
-          .catch(err => {
-            // any exception including data not found
-            // goes to catch()
-            // console.warn(err.message);
-            switch (err.name) {
-              case "NotFoundError":
-                // TODO;
-                console.log(" Not Found Here 2");
-                break;
-              case "ExpiredError":
-                // TODO
-                break;
-            }
-          });
-      });
-    });
-  };
   //   storage.clearMapForKey("user");
-  //   initLoop();
 
-  //Redirect to Booing Details Page
-
+  //onClick FlatList Item Function
   const openBookingDetails = (id, slotTitle) => {
     check(id);
-    //load data from storage start
-    console.log("ID Check->" + id);
+    //load data from storage
     storage
       .load({
         key: "user",
@@ -215,8 +118,6 @@ function ViewSlots({ navigation }) {
         });
       })
       .catch(err => {
-        // any exception including data not found
-        // goes to catch()
         switch (err.name) {
           case "NotFoundError":
             // TODO;
@@ -276,7 +177,7 @@ function ViewSlots({ navigation }) {
           style={styles.fab}
           small
           label="Check Availabilty"
-          onPress={() => checkLoop("1")}
+          onPress={() => checkAvailablity()}
         />
       </View>
     </>
