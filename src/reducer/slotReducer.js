@@ -1,12 +1,11 @@
 import remove from "lodash.remove";
-
-export const ADD_SLOT = "ADD_SLOT";
-export const UPDATE_SLOT = "UPDATE_SLOT";
+import { ADD_SLOT, UPDATE_SLOT } from "../actions/types";
 import { cos, add } from "react-native-reanimated";
 import Storage from "react-native-storage";
 import { AsyncStorage } from "react-native";
+import { initialData } from "../rawData";
 
-//initialize store
+//initialize storage
 const storage = new Storage({
   size: 1000,
   storageBackend: AsyncStorage, // for web: window.localStorage
@@ -17,7 +16,6 @@ const storage = new Storage({
 
 //actions
 
-//Action
 export function addslot(slot) {
   console.log("ID From reduce->" + slot.id);
   return {
@@ -37,97 +35,6 @@ export function updateslot(id, data) {
 
 //reducer
 
-const initialData = [
-  {
-    id: "01",
-    slot: {
-      slotTitle: "09:00AM  to 10:00 AM",
-      slotDescription: "Book Slot to meet me.",
-      isBooked: false,
-      first_name: "",
-      last_name: "",
-      mobile: ""
-    }
-  },
-  {
-    id: "02",
-    slot: {
-      slotTitle: "10:00AM  to 11:00 AM",
-      slotDescription: "Book Slot to meet me.",
-      isBooked: false,
-      first_name: "",
-      last_name: "",
-      mobile: ""
-    }
-  },
-  {
-    id: "03",
-    slot: {
-      slotTitle: "11:00AM  to 12:00 PM",
-      slotDescription: "Book Slot to meet me.",
-      isBooked: false,
-      first_name: "",
-      last_name: "",
-      mobile: ""
-    }
-  },
-  {
-    id: "04",
-    slot: {
-      slotTitle: "12 AM  to 01:00 PM",
-      slotDescription: "Book Slot to meet me.",
-      isBooked: false,
-      first_name: "",
-      last_name: "",
-      mobile: ""
-    }
-  },
-  {
-    id: "05",
-    slot: {
-      slotTitle: "01:00 PM  to 02:00 PM",
-      slotDescription: "Book Slot to meet me.",
-      isBooked: false,
-      first_name: "",
-      last_name: "",
-      mobile: ""
-    }
-  },
-  {
-    id: "06",
-    slot: {
-      slotTitle: "02:00 PM  to 03:00 PM",
-      slotDescription: "Book Slot to meet me.",
-      isBooked: false,
-      first_name: "",
-      last_name: "",
-      mobile: ""
-    }
-  },
-  {
-    id: "07",
-    slot: {
-      slotTitle: "03:00 PM  to 04:00 PM",
-      slotDescription: "Book Slot to meet me.",
-      isBooked: false,
-      first_name: "",
-      last_name: "",
-      mobile: ""
-    }
-  },
-  {
-    id: "08",
-    slot: {
-      slotTitle: "04:00 PM  to 05:00 PM",
-      slotDescription: "Book Slot to meet me.",
-      isBooked: false,
-      first_name: "",
-      last_name: "",
-      mobile: ""
-    }
-  }
-];
-
 function slotReducer(state = initialData, action) {
   switch (action.type) {
     case ADD_SLOT:
@@ -140,15 +47,9 @@ function slotReducer(state = initialData, action) {
       ];
     case UPDATE_SLOT:
       return state.map((item, index) => {
-        // Find the item with the matching id
         if (item.id == action.payload) {
-          //Update Database
-
-          console.log(item.id + " Hare 5");
-          // Return a new object
-          console.log("Reducer Item" + action.data);
           return {
-            ...item, // copy the existing item
+            ...item,
             slot: {
               isBooked: true,
               slotTitle: action.data
