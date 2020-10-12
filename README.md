@@ -27,7 +27,7 @@ by clicking on same Booking slot.
 
 
 ## Screen Recording Video
-To watch video please visit on link : [Link](https://drive.google.com/file/d/1sxp5aGVe8v2j-cqef1xnRhRLOFtr87Os/view)
+To watch video please visit on link : [Link](https://drive.google.com/file/d/12akhK3JVmP0HWwV63iUHmEnL0VDt1u7f/view?usp=sharing)
 
 
 ## How to run this app locally on your device
